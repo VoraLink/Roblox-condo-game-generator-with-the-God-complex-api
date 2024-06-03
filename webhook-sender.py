@@ -1,25 +1,34 @@
 import requests
 import time
-import os
 
-webhook_url = ("THE-URL-OF-YOUR-WEBHOOK")
-
+webhook_url = "YOUR URL WEBHOOK"
 last_url = ""
 
 while True:
-  try:
-    response = requests.get("https://condogame.fun/api/latest")
-    new_url = response.json()['url']
+    try:
+        response = requests.get("https://condogame.fun/api/latest")
+        response.raise_for_status()
+        new_url = response.json().get('url')
 
-    if new_url != last_url:
-      # Send the new URL to Discord
-      requests.post(webhook_url, json={"content": new_url})
-      # Update the last URL
-      last_url = new_url
-    else:
-      print(
-          "No changes to the URL"
-      )
-  except:
-    print("There was an error fetching at https://condogame.fun/api/latest")
-  time.sleep(5)
+        if new_url and new_url != last_url:
+            embed = {
+                "title": "Condo Uploaded!",
+                "description": new_url,
+                "color": 5814783,  # Hex color code for a nice blue color
+                "fields": [
+                    {
+                        "name": "How to get key?",
+                        "value": "Join to [Condox](https://discord.gg/condox)",
+                        "inline": False
+                    }
+                ]
+            }
+            requests.post(webhook_url, json={"embeds": [embed]})
+            last_url = new_url
+        else:
+            print("No changes to the URL")
+    except requests.RequestException as e:
+        print(f"Error fetching data: {e}")
+    except KeyError:
+        print("Unexpected response structure")
+    time.sleep(5)
