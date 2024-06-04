@@ -2,15 +2,11 @@
 
 Download the .py file that is in the files of this repository
 
-Now replace in the " webhook_url = ("THE-URL-OF-YOUR-WEBHOOK") " part the url of your webhook
+Now replace in the ' webhook_url = "Webhook_URL" ' part the url of your webhook
 
 and now you can enjoy your strange things 
 
-# How does it work
+# New Update
 
-This script is monitoring changes to a specific URL and sending a notification to a Discord webhook when it detects a change. 
-It is likely being used to monitor some type of update or change to an online game or application hosted on the 'condogame.fun' website.
+Now you can send the key as a message using the same condogame.fun api and now you have embed with a gif of tbh creature and that's it
 
-# Warning: if you want to get the key for the condos games, enter this discord server
-
-https://discord.gg/condox
